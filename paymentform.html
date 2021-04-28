@@ -151,8 +151,6 @@
                     <input type="checkbox" class="form-check-input" name="validation" id="validation" value="1">
                     <label for="validation" class="form-check-label">Masters</label>
                     <div>
-                     
-
                     </div>
                     </div>
                    
@@ -161,38 +159,7 @@
                   <div id="paypal-button-container"></div>
                 </div>
               </div>
-            <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD" data-sdk-integration-source="button-factory"></script>
-            <script>
-              function initPayPalButton() {
-                paypal.Buttons({
-                  style: {
-                    shape: 'rect',
-                    color: 'gold',
-                    layout: 'vertical',
-                    label: 'paypal',
-                    
-                  },
-          
-                  createOrder: function(data, actions) {
-                    return actions.order.create({
-                      purchase_units: [{"amount":{"currency_code":"USD","value":1}}]
-                    });
-                  },
-          
-                  onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(details) {
-                      alert('Transaction completed by ' + details.payer.name.given_name + '!');
-                    });
-                  },
-          
-                  onError: function(err) {
-                    console.log(err);
-                  }
-                }).render('#paypal-button-container');
-              }
-              initPayPalButton();
-            </script>
-
+           
             </div>
           </div>
         </div>
@@ -205,25 +172,39 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD" data-sdk-integration-source="button-factory"></script>
 <script>
-  // Example starter JavaScript for disabling form submissions if there are invalid fields
-  (function() {
-    'use strict';
-    window.addEventListener('load', function() {
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.getElementsByClassName('order-form-label');
-      // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function(form) {
-        form.addEventListener('submit', function(event) {
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          form.classList.add('was-validated');
-        }, false);
-      });
-    }, false);
-  })();
-  </script>
+  function initPayPalButton() {
+    paypal.Buttons({
+      style: {
+        shape: 'rect',
+        color: 'gold',
+        layout: 'vertical',
+        label: 'paypal',
+        
+      },
+
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{"amount":{"currency_code":"USD","value":1}}]
+        });
+      },
+
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          alert('Transaction completed by ' + details.payer.name.given_name + '!');
+        });
+      },
+
+      onError: function(err) {
+        console.log(err);
+      }
+    }).render('#paypal-button-container');
+  }
+  initPayPalButton();
+</script>
+
+
 </body>
 </html>
